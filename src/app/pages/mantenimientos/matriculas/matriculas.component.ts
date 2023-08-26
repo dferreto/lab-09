@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { Estudiantes } from 'src/app/shared/models/estudiante';
-import { AdminMatriculasComponent } from './admin-matriculas/admin-matriculas.component';
+import { EstudianteForm } from 'src/app/shared/formsModels/estudiantesForms';
 import { EstudiantesService } from 'src/app/shared/services/estudiantes.service';
+import { EstudiantesComponent } from './estudiantes/estudiantes.component';
+import { CursosService } from 'src/app/shared/services/cursos.service';
+import { CursosComponent } from './cursos/cursos.component';
+import { CursoEstudiante } from 'src/app/shared/models/cursoEstudiante';
 
 @Component({
   selector: 'app-matriculas',
@@ -12,71 +14,31 @@ import { EstudiantesService } from 'src/app/shared/services/estudiantes.service'
   styleUrls: ['./matriculas.component.scss']
 })
 export class MatriculasComponent {
-  displayedColumns: string[] = [
-    'cedula',
-    'nombre',
-    'apellido1',
-    'apellido2',
-    'fechaNac',
-    'acciones',
-
-  ];
-
-  dataSource = new MatTableDataSource();
+  Estudiantes: CursoEstudiante [] = [];
 
   constructor(
+    public estudianteForm: EstudianteForm,
+    public dialog: MatDialog,
     private srvEstudiantes: EstudiantesService,
-    private mensajeria: ToastrService,
-    public dialog: MatDialog
+    private srvCursos: CursosService,
+    private mensajeria: ToastrService
   ) {}
-  ngOnInit() {
-    this.cargarlista()
-  }
-
-  cargarlista(){
-    this.srvEstudiantes.getAll().subscribe(
-      (datos) => {
-        this.dataSource.data = datos;
-      },
-      (error) => {
-        this.mensajeria.error(error);
-      }
-    );
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
-
-  abrirDialog(estudiante?: Estudiantes): void {
-    if (estudiante) {
-      this.dialog.open(AdminMatriculasComponent, {
-        width: '700px',
-        height: '700px',
-        data: { estudiante },
-      });
-    } else {
-      this.dialog.open(AdminMatriculasComponent, {
-        width: '700px',
-        height: '700px',
-      });
-    }
-  }
-
   
-
-
-
-  detalle(dato: Estudiantes): void {
-   this.mensajeria.success(dato.nombre);
+  abrirEstudiante(): void {
+    let dialogOpen;
+    dialogOpen = this.dialog.open(EstudiantesComponent, {
+      width: 'auto',
+      height: 'auto',
+    });
   }
 
 
 
- 
-    
-
-  
-
+  abrirCursos(): void {
+    let dialogOpen;
+    dialogOpen = this.dialog.open(CursosComponent, {
+      width: '470px',
+      height: '525px',
+    });
+  }
 }

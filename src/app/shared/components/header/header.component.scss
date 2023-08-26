@@ -1,6 +1,20 @@
-.header{
-    background-color: bisque;
-    padding: 25px 0px;
+.header {
+  background-color: white;
+  color: #273273; 
+  padding: 25px 0px;
   text-align: center;
-  }
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  max-width: 200px; 
+  margin-right: 20px; 
+  margin-left: -20px; 
+}
+
+h1 {
+  font-size: 40px; 
+  font-weight: bolder;
+}

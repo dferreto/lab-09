@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { Curso } from './entity/Curso';
-import { DetalleMatricula } from './entity/DetalleMatricula';
+import { Curso } from './entity/Cursos';
 import { Estudiante } from './entity/Estudiante';
-import { Matricula } from './entity/Matricula';
+import { CursoEstudiante } from './entity/EstudianteCursos';
+
 
 
 export const AppDataSource= new DataSource({
@@ -12,15 +12,13 @@ export const AppDataSource= new DataSource({
   port: 3306,
   username: 'root',
   password: 'root',
-  database: 'pruebautn',
+  database: 'lab09',
   synchronize: true,
   logging: false,
-  entities: [
+  entities: [ 
     Curso,
-    DetalleMatricula,
     Estudiante,
-    Matricula,
-  
+    CursoEstudiante,
   ],
   migrations: [],
   subscribers: [],
